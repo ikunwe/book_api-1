@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
+from pymongo import MongoClient
 
 # Sample data (in-memory database for simplicity)
 books = [
@@ -8,6 +9,10 @@ books = [
     {"id": 3, "title": "Seven Things You Can't Say About China", "author": "Tom Cotton", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81+mN748qkL._AC_UL381_SR381,381_.jpg"},
     {"id": 4, "title": "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones", "author" : "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81ANaVZk5LL._AC_UL381_SR381,381_.jpg"}
 ]
+
+client = MongoClient("mongodb+srv://<username>:<password>@cluster0.o517d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+db = client['books_database']  
+books_collection = db['books']
 
 app = Flask(__name__)
 CORS(app)
